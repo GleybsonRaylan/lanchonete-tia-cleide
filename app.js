@@ -1220,7 +1220,6 @@ function processOrder() {
     complement: formData.get("complement"),
     neighborhood: formData.get("neighborhood"),
     city: formData.get("city"),
-    zipcode: formData.get("zipcode"),
     notes: formData.get("notes"),
   };
 
@@ -1230,8 +1229,7 @@ function processOrder() {
     !address.street ||
     !address.number ||
     !address.neighborhood ||
-    !address.city ||
-    !address.zipcode
+    !address.city
   ) {
     showToast("Preencha todos os campos obrigatórios", "error");
     return;
@@ -1300,7 +1298,6 @@ function buildWhatsAppMessage(cart, address) {
   if (address.complement) message += `${address.complement}\\n`;
   message += `${address.neighborhood}\\n`;
   message += `${address.city}\\n`;
-  message += `CEP: ${address.zipcode}\\n\\n`;
 
   // Observações
   if (address.notes && address.notes.trim() !== "") {
