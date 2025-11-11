@@ -1262,59 +1262,73 @@ function processOrder() {
   showToast("Pedido enviado com sucesso!", "success");
 }
 
+// ===== BUILD WHATSAPP MESSAGE (FORMATADA CORRETAMENTE) =====
 function buildWhatsAppMessage(cart, address) {
   const phoneNumber = "5581995428388";
 
-  let message = `*NOVO PEDIDO - LANCHONETE TIA CLEIDE*\\n\\n`;
+  let message = `*🍔 NOVO PEDIDO - LANCHONETE TIA CLEIDE*\\n\\n`;
 
-  // Dados do cliente
-  message += `*Cliente:* ${address.name}\\n`;
-  message += `*Telefone:* [Cliente informará]\\n\\n`;
+  // ===== DADOS DO CLIENTE =====
+  message += `*👤 DADOS DO CLIENTE*\\n`;
+  message += `Nome: ${address.name}\\n`;
+  message += `Telefone: [Cliente informará]\\n\\n`;
 
-  // Itens do pedido
-  message += `*ITENS DO PEDIDO:*\\n`;
+  // ===== ITENS DO PEDIDO =====
+  message += `*🛒 ITENS DO PEDIDO*\\n\\n`;
+
   let total = 0;
-
-  cart.forEach((item) => {
+  cart.forEach((item, index) => {
     const product = findProductById(item.id);
     if (product) {
       const itemTotal = product.price * item.quantity;
       total += itemTotal;
-      message += `- ${product.name}\\n`;
-      message += `  Quantidade: ${item.quantity} un\\n`;
+
+      message += `*${index + 1}. ${product.name}*\\n`;
+      message += `   🔹 Quantidade: ${item.quantity}\\n`;
+      message += `   🔹 Preço: R$ ${product.price.toFixed(2)}\\n`;
       if (item.options) {
-        message += `  ${item.options}\\n`;
+        message += `   🔹 Personalização: ${item.options}\\n`;
       }
-      message += `  Valor: R$ ${itemTotal.toFixed(2)}\\n\\n`;
+      message += `   🔹 Subtotal: R$ ${itemTotal.toFixed(2)}\\n\\n`;
     }
   });
 
-  // Total
+  // ===== RESUMO DO VALOR =====
+  message += `*💰 RESUMO DO VALOR*\\n`;
+  message += `Subtotal: R$ ${total.toFixed(2)}\\n`;
+  message += `Taxa de entrega: A combinar\\n`;
   message += `*TOTAL: R$ ${total.toFixed(2)}*\\n\\n`;
 
-  // Endereço
-  message += `*ENDEREÇO DE ENTREGA:*\\n`;
+  // ===== ENDEREÇO DE ENTREGA =====
+  message += `*📍 ENDEREÇO DE ENTREGA*\\n`;
   message += `${address.street}, ${address.number}\\n`;
-  if (address.complement) message += `${address.complement}\\n`;
-  message += `${address.neighborhood}\\n`;
-  message += `${address.city}\\n`;
+  if (address.complement) {
+    message += `${address.complement}\\n`;
+  }
+  message += `Bairro: ${address.neighborhood}\\n`;
+  message += `Cidade: ${address.city}\\n`;
+  message += `CEP: ${address.zipcode}\\n\\n`;
 
-  // Observações
+  // ===== OBSERVAÇÕES =====
   if (address.notes && address.notes.trim() !== "") {
-    message += `*OBSERVAÇÕES:*\\n${address.notes}\\n\\n`;
+    message += `*📝 OBSERVAÇÕES*\\n`;
+    message += `${address.notes}\\n\\n`;
   }
 
-  // Horário
-  message += `*HORÁRIO DO PEDIDO:* ${new Date().toLocaleTimeString("pt-BR", {
+  // ===== HORÁRIO =====
+  message += `*⏰ HORÁRIO DO PEDIDO*\\n`;
+  message += `${new Date().toLocaleTimeString("pt-BR", {
     hour: "2-digit",
     minute: "2-digit",
   })}\\n\\n`;
 
-  message += `_Pedido enviado automaticamente pelo site_`;
+  message += `_📱 Pedido enviado automaticamente pelo site_`;
 
-  return `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+  // Codifica a mensagem para URL
+  const encodedMessage = encodeURIComponent(message);
+
+  return `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
 }
-
 // ===== UTILITÁRIOS =====
 function findProductById(id) {
   for (const category of menu) {
