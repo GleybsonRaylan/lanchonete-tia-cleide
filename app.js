@@ -1263,18 +1263,25 @@ function processOrder() {
 }
 
 // ===== BUILD WHATSAPP MESSAGE (FORMATADA CORRETAMENTE) =====
+// ===== BUILD WHATSAPP MESSAGE (CORRIGIDA - SEM ESCAPE DUPLO) =====
 function buildWhatsAppMessage(cart, address) {
   const phoneNumber = "5581995428388";
 
-  let message = `*🍔 NOVO PEDIDO - LANCHONETE TIA CLEIDE*\\n\\n`;
+  let message = `*🍔 NOVO PEDIDO - LANCHONETE TIA CLEIDE*
+
+`;
 
   // ===== DADOS DO CLIENTE =====
-  message += `*👤 DADOS DO CLIENTE*\\n`;
-  message += `Nome: ${address.name}\\n`;
-  message += `Telefone: [Cliente informará]\\n\\n`;
+  message += `*👤 DADOS DO CLIENTE*
+Nome: ${address.name}
+Telefone: [Cliente informará]
+
+`;
 
   // ===== ITENS DO PEDIDO =====
-  message += `*🛒 ITENS DO PEDIDO*\\n\\n`;
+  message += `*🛒 ITENS DO PEDIDO*
+
+`;
 
   let total = 0;
   cart.forEach((item, index) => {
@@ -1283,46 +1290,68 @@ function buildWhatsAppMessage(cart, address) {
       const itemTotal = product.price * item.quantity;
       total += itemTotal;
 
-      message += `*${index + 1}. ${product.name}*\\n`;
-      message += `   🔹 Quantidade: ${item.quantity}\\n`;
-      message += `   🔹 Preço: R$ ${product.price.toFixed(2)}\\n`;
+      message += `*${index + 1}. ${product.name}*
+   🔹 Quantidade: ${item.quantity}
+   🔹 Preço: R$ ${product.price.toFixed(2)}`;
+
       if (item.options) {
-        message += `   🔹 Personalização: ${item.options}\\n`;
+        message += `
+   🔹 Personalização: ${item.options}`;
       }
-      message += `   🔹 Subtotal: R$ ${itemTotal.toFixed(2)}\\n\\n`;
+
+      message += `
+   🔹 Subtotal: R$ ${itemTotal.toFixed(2)}
+
+`;
     }
   });
 
   // ===== RESUMO DO VALOR =====
-  message += `*💰 RESUMO DO VALOR*\\n`;
-  message += `Subtotal: R$ ${total.toFixed(2)}\\n`;
-  message += `Taxa de entrega: A combinar\\n`;
-  message += `*TOTAL: R$ ${total.toFixed(2)}*\\n\\n`;
+  message += `*💰 RESUMO DO VALOR*
+Subtotal: R$ ${total.toFixed(2)}
+Taxa de entrega: A combinar
+*TOTAL: R$ ${total.toFixed(2)}*
+
+`;
 
   // ===== ENDEREÇO DE ENTREGA =====
-  message += `*📍 ENDEREÇO DE ENTREGA*\\n`;
-  message += `${address.street}, ${address.number}\\n`;
+  message += `*📍 ENDEREÇO DE ENTREGA*
+${address.street}, ${address.number}`;
+
   if (address.complement) {
-    message += `${address.complement}\\n`;
+    message += `
+${address.complement}`;
   }
-  message += `Bairro: ${address.neighborhood}\\n`;
-  message += `Cidade: ${address.city}\\n`;
-  message += `CEP: ${address.zipcode}\\n\\n`;
+
+  message += `
+Bairro: ${address.neighborhood}
+Cidade: ${address.city}
+CEP: ${address.zipcode}
+
+`;
 
   // ===== OBSERVAÇÕES =====
   if (address.notes && address.notes.trim() !== "") {
-    message += `*📝 OBSERVAÇÕES*\\n`;
-    message += `${address.notes}\\n\\n`;
+    message += `*📝 OBSERVAÇÕES*
+${address.notes}
+
+`;
   }
 
   // ===== HORÁRIO =====
-  message += `*⏰ HORÁRIO DO PEDIDO*\\n`;
-  message += `${new Date().toLocaleTimeString("pt-BR", {
-    hour: "2-digit",
-    minute: "2-digit",
-  })}\\n\\n`;
+  message += `*⏰ HORÁRIO DO PEDIDO*
+${new Date().toLocaleTimeString("pt-BR", {
+  hour: "2-digit",
+  minute: "2-digit",
+})}
+
+`;
 
   message += `_📱 Pedido enviado automaticamente pelo site_`;
+
+  // Debug: mostra a mensagem no console
+  console.log("Mensagem formatada:");
+  console.log(message);
 
   // Codifica a mensagem para URL
   const encodedMessage = encodeURIComponent(message);
