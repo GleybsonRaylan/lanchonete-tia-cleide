@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lanchonete Tia Cleide</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- Header com navegação -->
+    <header class="header">
+      <div class="container">
+        <div class="logo">
+          <img
+            src="assets/images/logo.png"
+            alt="Lanchonete Tia Cleide"
+            class="logo-image"
+            onerror="this.style.display='none'"
+          />
+          <h1>Lanchonete Tia Cleide</h1>
+        </div>
+        <nav class="nav">
+          <button class="nav-toggle" aria-label="Abrir menu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          <ul class="nav-menu">
+            <li><a href="#home" class="nav-link">Início</a></li>
+            <li><a href="#menu" class="nav-link">Cardápio</a></li>
+            <li><a href="#cart" class="nav-link">Carrinho</a></li>
+            <li><a href="#contact" class="nav-link">Contato</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Seção principal -->
+    <main class="main">
+      <!-- Seção de boas-vindas -->
+      <section id="home" class="hero">
+        <div class="container">
+          <div class="hero-content">
+            <h2>Os melhores salgados e lanches da região</h2>
+            <p>Faz logo teu pedido</p>
+            <div class="status" id="status">
+              <span class="status-indicator" id="status-indicator"></span>
+              <span id="status-text">Verificando horário...</span>
+            </div>
+            <div class="hero-buttons">
+              <a href="#menu" class="btn-primary">Ver Cardápio</a>
+              <button class="btn-secondary" id="quick-order">
+                <i class="fas fa-bolt"></i> Pedir Agora
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Seção de pesquisa e categorias FIXA -->
+      <section class="menu-fixed-section" id="menu-fixed">
+        <div class="container">
+          <div class="search-box">
+            <input
+              type="text"
+              id="search-input"
+              placeholder="Pesquisar produtos..."
+            />
+            <button id="search-btn" aria-label="Pesquisar">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+          <div class="categories-scroll">
+            <div class="categories" id="categories">
+              <!-- Categorias serão inseridas dinamicamente via JavaScript -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Seção do cardápio -->
+      <section id="menu" class="menu-section">
+        <div class="container">
+          <h2 class="section-title">Nosso Cardápio</h2>
+          <div class="products-grid" id="products">
+            <!-- Produtos serão inseridos dinamicamente via JavaScript -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Seção do carrinho -->
+      <section id="cart" class="cart-section">
+        <div class="container">
+          <h2 class="section-title">Seu Carrinho</h2>
+          <div class="cart-container">
+            <div class="cart-items" id="cart-items">
+              <!-- Itens do carrinho serão inseridos dinamicamente via JavaScript -->
+            </div>
+            <div class="cart-summary">
+              <div class="cart-totals">
+                <div class="subtotal">
+                  <span>Subtotal:</span>
+                  <span id="subtotal">R$ 0,00</span>
+                </div>
+                <div class="delivery-fee">
+                  <span>Taxa de entrega:</span>
+                  <span id="delivery-fee">R$ 0,00</span>
+                </div>
+                <div class="total">
+                  <span>Total:</span>
+                  <span id="total">R$ 0,00</span>
+                </div>
+              </div>
+              <button class="btn-primary" id="checkout-btn" disabled>
+                <i class="fas fa-whatsapp"></i> Finalizar Pedido
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Seção de contato -->
+      <section id="contact" class="contact-section">
+        <div class="container">
+          <h2 class="section-title">Entre em Contato</h2>
+          <div class="contact-info">
+            <div class="contact-item">
+              <i class="fas fa-phone"></i>
+              <div>
+                <strong>Telefone/WhatsApp</strong>
+                <p>+55 81 99542-8388</p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-clock"></i>
+              <div>
+                <strong>Horário de Funcionamento</strong>
+                <ul id="opening-hours">
+                  <!-- Horários serão inseridos dinamicamente via JavaScript -->
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <p>&copy; 2025 Lanchonete Tia Cleide. Todos os direitos reservados.</p>
+      </div>
+    </footer>
+
+    <!-- Modal de endereço -->
+    <div class="modal" id="address-modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Informe seu endereço</h3>
+          <button class="close-modal" id="close-address-modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <form id="address-form">
+            <div class="form-group">
+              <label for="name">Nome completo *</label>
+              <input type="text" id="name" name="name" required />
+            </div>
+            <div class="form-group">
+              <label for="street">Rua *</label>
+              <input type="text" id="street" name="street" required />
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="number">Número *</label>
+                <input type="text" id="number" name="number" required />
+              </div>
+              <div class="form-group">
+                <label for="complement">Complemento</label>
+                <input type="text" id="complement" name="complement" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="neighborhood">Bairro *</label>
+              <input
+                type="text"
+                id="neighborhood"
+                name="neighborhood"
+                required
+              />
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="city">Cidade *</label>
+                <input type="text" id="city" name="city" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="notes">Observações</label>
+              <textarea
+                id="notes"
+                name="notes"
+                rows="3"
+                placeholder="Alguma observação sobre o pedido?"
+              ></textarea>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn-primary" id="send-order-btn">
+                <i class="fas fa-paper-plane"></i> Enviar Pedido
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal de opções do produto -->
+    <div class="modal" id="options-modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 id="options-modal-title">Personalizar Pedido</h3>
+          <button class="close-modal" id="close-options-modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <form id="options-form">
+            <div
+              id="sabores-section"
+              class="options-section"
+              style="display: none"
+            >
+              <h4>Escolha até 3 sabores:</h4>
+              <div class="options-grid" id="sabores-options">
+                <!-- Opções de sabores serão inseridas dinamicamente -->
+              </div>
+            </div>
+
+            <div
+              id="acompanhamentos-section"
+              class="options-section"
+              style="display: none"
+            >
+              <h4>Escolha até 3 acompanhamentos:</h4>
+              <div class="options-grid" id="acompanhamentos-options">
+                <!-- Opções de acompanhamentos serão inseridas dinamicamente -->
+              </div>
+            </div>
+
+            <div
+              id="sabor-unico-section"
+              class="options-section"
+              style="display: none"
+            >
+              <h4>Escolha o sabor:</h4>
+              <div class="options-grid" id="sabor-unico-options">
+                <!-- Opção única de sabor será inserida dinamicamente -->
+              </div>
+            </div>
+
+            <div class="selected-options" id="selected-options">
+              <!-- Opções selecionadas serão mostradas aqui -->
+            </div>
+
+            <div class="form-actions">
+              <button
+                type="submit"
+                class="btn-primary"
+                id="add-to-cart-options"
+              >
+                <i class="fas fa-cart-plus"></i> Adicionar ao Carrinho
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast de notificação -->
+    <div class="toast" id="toast"></div>
+
+    <!-- Ícone flutuante do carrinho -->
+    <div class="cart-floating" id="cart-floating">
+      <span class="cart-badge" id="cart-badge">0</span>
+      <i class="fas fa-shopping-cart"></i>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
