@@ -3,37 +3,7 @@ const menu = [
   {
     category: "Lanches",
     items: [
-      {
-        id: "pastelao",
-        name: "Monte o seu Pastelão",
-        price: 7.0,
-        image: "assets/images/lanches-pastelao.jpg",
-        description: "Escolha o sabor e os acompanhamentos",
-        hasOptions: true,
-        options: {
-          sabores: [
-            "Calabresa",
-            "Queijo coalho",
-            "Queijo mussarela",
-            "Frango desfiado",
-            "Carne moida",
-            "Cheddar",
-            "Catupiry",
-            "Presunto",
-            "Salsinha",
-          ],
-          acompanhamentos: [
-            "Milho e ervilha",
-            "Vinagrete",
-            "Batata palha",
-            "Queijo parmesão",
-            "Ervilha",
-            "Ovo de codorna",
-          ],
-          maxSabores: 3,
-          maxAcompanhamentos: 3,
-        },
-      },
+      ,
       {
         id: "combo-festa",
         name: "Combo festa",
@@ -43,11 +13,11 @@ const menu = [
         hasOptions: false,
       },
       {
-        id: "cachorro-quente",
-        name: "Cachorro quente GIGANTE",
-        price: 15.0,
-        image: "assets/images/salgados-cachorro.jpg",
-        description: "Cachorro quente gigante com diversos acompanhamentos",
+        id: "Torta",
+        name: "Torta",
+        price: 7.0,
+        image: "assets/images/lanche-torta.jpg",
+        description: "Fatia de torta, com muito recheio",
         hasOptions: false,
       },
       {
@@ -65,10 +35,18 @@ const menu = [
     items: [
       {
         id: "coxinha",
-        name: "Coxinha com catupiry",
-        price: 4.0,
+        name: "Coxinha",
+        price: 5.0,
         image: "assets/images/salgados-coxinha.jpg",
-        description: "Coxinha de frango com catupiry",
+        description: "Coxinha de frango",
+        hasOptions: false,
+      },
+      {
+        id: "joelho",
+        name: "Joelho",
+        price: 3.0,
+        image: "assets/images/salgado-joelho-queijo.jpg",
+        description: "Joelho de presunto com queijo",
         hasOptions: false,
       },
       {
@@ -127,9 +105,25 @@ const menu = [
       {
         id: "hamburguer-forno",
         name: "Hambúrguer de forno",
-        price: 5.0,
+        price: 4.0,
         image: "assets/images/salgados-hamburguer.jpg",
         description: "Hambúrguer assado no forno",
+        hasOptions: false,
+      },
+      {
+        id: "Pastel de forno",
+        name: "Pastel de forno",
+        price: 3.0,
+        image: "assets/images/salgados-forno.jpg",
+        description: "Pastel de forno sabor de frango",
+        hasOptions: false,
+      },
+      {
+        id: "risole",
+        name: "Risole",
+        price: 3.0,
+        image: "assets/images/salgados-risole.jpg",
+        description: "Melhor risole da região",
         hasOptions: false,
       },
       {
@@ -210,7 +204,7 @@ const menu = [
       {
         id: "refri-250ml",
         name: "Refrigerante 250 ml",
-        price: 2.0,
+        price: 3.0,
         image: "assets/images/bebidas-refri250.jpg",
         description: "Refrigerante em garrafa de 250ml",
         hasOptions: false,
@@ -237,6 +231,14 @@ const menu = [
         hasOptions: false,
       },
       {
+        id: "moreninha",
+        name: "Moreninha",
+        price: 3.0,
+        image: "assets/images/frios-moreninha.jpg",
+        description: "Sabor irresistível da Moreninha",
+        hasOptions: false,
+      },
+      {
         id: "Sorvete",
         name: "Sorvete Copão",
         price: 5.0,
@@ -255,7 +257,7 @@ const menu = [
       {
         id: "Picole",
         name: "Picolé de Mano",
-        price: 2.0,
+        price: 3.0,
         image: "assets/images/frios-picole.jpg",
         description: "Melhor Picolé da região",
         hasOptions: false,
