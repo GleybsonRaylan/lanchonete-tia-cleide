@@ -1,9 +1,8 @@
-// ===== ESTRUTURA DE DADOS DO CARDÁPIO =====
+// ===== ESTRUTURA DE DADOS DO CARDÁPIO CORRIGIDA =====
 const menu = [
   {
     category: "Lanches",
     items: [
-      ,
       {
         id: "combo-festa",
         name: "Combo festa",
@@ -13,7 +12,7 @@ const menu = [
         hasOptions: false,
       },
       {
-        id: "Torta",
+        id: "torta",
         name: "Torta",
         price: 7.0,
         image: "assets/images/lanche-torta.jpg",
@@ -21,7 +20,7 @@ const menu = [
         hasOptions: false,
       },
       {
-        id: "Empadão",
+        id: "empadao-frango",
         name: "Empadão de frango",
         price: 14.0,
         image: "assets/images/lanches-empadao.jpg",
@@ -34,7 +33,7 @@ const menu = [
     category: "Salgados",
     items: [
       {
-        id: "coxinha",
+        id: "coxinha-frango",
         name: "Coxinha de frango",
         price: 5.0,
         image: "assets/images/salgados-coxinha.jpg",
@@ -42,15 +41,15 @@ const menu = [
         hasOptions: false,
       },
       {
-        id: "joelho",
-        name: "joelho de presunto e queijo",
+        id: "joelho-presunto-queijo",
+        name: "Joelho de presunto e queijo",
         price: 3.0,
         image: "assets/images/salgado-joelho-queijo.jpg",
         description: "Joelho de presunto com queijo",
         hasOptions: false,
       },
       {
-        id: "coxinha",
+        id: "coxinha-frango-requeijao",
         name: "Coxinha de frango com requeijão",
         price: 5.0,
         image: "assets/images/salgados-coxinha-re.jpg",
@@ -79,15 +78,15 @@ const menu = [
         },
       },
       {
-        id: "empada",
-        name: "Empada",
+        id: "empada-frango",
+        name: "Empada de frango",
         price: 3.0,
         image: "assets/images/salgados-empada.jpg",
         description: "Empada de frango",
         hasOptions: false,
       },
       {
-        id: "esfirra",
+        id: "esfirra-carne",
         name: "Esfirra de carne",
         price: 3.0,
         image: "assets/images/salgados-esfirra.jpg",
@@ -95,7 +94,7 @@ const menu = [
         hasOptions: false,
       },
       {
-        id: "joelho-frango",
+        id: "joelho-frango-queijo",
         name: "Joelho de frango com queijo",
         price: 3.0,
         image: "assets/images/salgados-joelho.jpg",
@@ -111,7 +110,7 @@ const menu = [
         hasOptions: false,
       },
       {
-        id: "Pastel de forno",
+        id: "pastel-forno",
         name: "Pastel de forno",
         price: 3.0,
         image: "assets/images/salgados-forno.jpg",
@@ -136,7 +135,6 @@ const menu = [
       },
     ],
   },
-
   {
     category: "Combos",
     items: [
@@ -210,15 +208,15 @@ const menu = [
         hasOptions: false,
       },
       {
-        id: "refri-250ml",
+        id: "coca-350ml",
         name: "Coca-cola 350 ml",
         price: 5.0,
         image: "assets/images/bebidas-refrilata.jpg",
-        description: "Refrigerante em garrafa de 250ml",
+        description: "Refrigerante em garrafa de 350ml",
         hasOptions: false,
       },
       {
-        id: "refri-lata",
+        id: "guarana-lata",
         name: "Guaraná Antártica 350 ml",
         price: 5.0,
         image: "assets/images/bebidas-guarana.jpg",
@@ -247,7 +245,7 @@ const menu = [
         hasOptions: false,
       },
       {
-        id: "Sorvete",
+        id: "sorvete-copao",
         name: "Sorvete Copão",
         price: 5.0,
         image: "assets/images/frios-sorvete.jpg",
@@ -255,7 +253,7 @@ const menu = [
         hasOptions: false,
       },
       {
-        id: "Dudu",
+        id: "dudu",
         name: "Dudu",
         price: 1.0,
         image: "assets/images/frios-dudu.jpg",
@@ -263,7 +261,7 @@ const menu = [
         hasOptions: false,
       },
       {
-        id: "Picole",
+        id: "picole",
         name: "Picolé de Mano",
         price: 3.0,
         image: "assets/images/frios-picole.jpg",
@@ -281,15 +279,15 @@ let filteredProducts = [];
 let currentProductForOptions = null;
 let favorites = [];
 
-// ===== HORÁRIOS DE FUNCIONAMENTO =====
+// ===== HORÁRIOS DE FUNCIONAMENTO CORRIGIDOS =====
 const openingHours = {
-  1: { open: "10:00", close: "19:30" },
-  2: { open: "08:00", close: "21:00" },
-  3: { open: "08:00", close: "21:00" },
-  4: { open: "08:00", close: "21:00" },
-  5: { open: "08:00", close: "21:00" },
-  6: { open: "08:00", close: "21:30" },
-  0: { open: "08:00", close: "21:30" },
+  0: { open: "08:00", close: "21:30" }, // Domingo
+  1: { open: "10:00", close: "19:30" }, // Segunda
+  2: { open: "08:00", close: "21:00" }, // Terça
+  3: { open: "08:00", close: "21:00" }, // Quarta
+  4: { open: "08:00", close: "21:00" }, // Quinta
+  5: { open: "08:00", close: "21:00" }, // Sexta
+  6: { open: "08:00", close: "21:30" }, // Sábado
 };
 
 // ===== INICIALIZAÇÃO =====
@@ -324,7 +322,6 @@ function initializeApp() {
 
 // ===== CONFIGURAÇÃO DE IMAGENS =====
 function setupImageFallbacks() {
-  // Adiciona fallback para todas as imagens do menu
   document.addEventListener("DOMContentLoaded", function () {
     const images = document.querySelectorAll("img");
     images.forEach((img) => {
@@ -390,7 +387,6 @@ function setupEventListeners() {
       filterProducts(this.value);
     });
 
-    // Enter para pesquisar
     searchInput.addEventListener("keypress", function (e) {
       if (e.key === "Enter") {
         filterProducts(this.value);
@@ -500,10 +496,8 @@ function handleSwipe() {
 
   if (Math.abs(diff) > swipeThreshold) {
     if (diff > 0) {
-      // Swipe para esquerda - próxima categoria
       navigateCategories(1);
     } else {
-      // Swipe para direita - categoria anterior
       navigateCategories(-1);
     }
   }
@@ -541,7 +535,6 @@ function renderCategories() {
     categoriesContainer.appendChild(button);
   });
 
-  // Adiciona indicador de scroll em mobile
   if (window.innerWidth <= 768) {
     categoriesContainer.classList.add("scrollable");
   } else {
@@ -560,7 +553,6 @@ function createCategoryButton(categoryId, text) {
     renderCategories();
     renderProducts();
 
-    // Scroll suave para a seção de produtos
     document.getElementById("menu").scrollIntoView({
       behavior: "smooth",
       block: "start",
@@ -575,18 +567,15 @@ function renderProducts() {
 
   productsContainer.innerHTML = "";
 
-  // Filtra produtos
   let productsToRender =
     currentCategory === "all"
       ? menu.flatMap((cat) => cat.items)
       : menu.find((cat) => cat.category === currentCategory)?.items || [];
 
-  // Aplica filtro de pesquisa
   if (filteredProducts.length > 0) {
     productsToRender = filteredProducts;
   }
 
-  // Renderiza produtos ou mensagem de vazio
   if (productsToRender.length === 0) {
     productsContainer.innerHTML = `
       <div class="no-products">
@@ -598,13 +587,11 @@ function renderProducts() {
     return;
   }
 
-  // Renderiza os produtos
   productsToRender.forEach((product) => {
     const productCard = createProductCard(product);
     productsContainer.appendChild(productCard);
   });
 
-  // Anima a entrada dos produtos
   animateProductsEntrance();
 }
 
@@ -666,7 +653,6 @@ function createProductCard(product) {
     </div>
   `;
 
-  // Adiciona event listeners
   setupProductCardEvents(card, product, quantity);
   return card;
 }
@@ -741,7 +727,7 @@ function toggleFavorite(productId) {
   saveFavorites();
 }
 
-// ===== MODAL DE OPÇÕES (MELHORADO) =====
+// ===== MODAL DE OPÇÕES CORRIGIDO =====
 function showOptionsModal(product) {
   currentProductForOptions = product;
   const optionsModal = document.getElementById("options-modal");
@@ -756,52 +742,19 @@ function showOptionsModal(product) {
   document.getElementById("selected-options").innerHTML = "";
 
   // Configura opções baseadas no produto
-  if (product.id === "pastelao") {
-    setupPastelaoOptions();
-  } else if (product.id === "pastel-frito") {
+  if (product.id === "pastel-frito") {
     setupPastelFritoOptions();
+  } else {
+    // Para outros produtos com opções (se houver)
+    setupGenericOptions(product);
   }
 
   optionsModal.classList.add("active");
 
-  // Foca no primeiro elemento interativo
   setTimeout(() => {
     const firstInput = optionsModal.querySelector("input");
     if (firstInput) firstInput.focus();
   }, 300);
-}
-
-function setupPastelaoOptions() {
-  const product = currentProductForOptions;
-
-  // Seção de sabores
-  document.getElementById("sabores-section").style.display = "block";
-  const saboresContainer = document.getElementById("sabores-options");
-  saboresContainer.innerHTML = "";
-
-  product.options.sabores.forEach((sabor, index) => {
-    const checkbox = createOptionCheckbox("sabores", sabor, index);
-    saboresContainer.appendChild(checkbox);
-  });
-
-  // Seção de acompanhamentos
-  document.getElementById("acompanhamentos-section").style.display = "block";
-  const acompanhamentosContainer = document.getElementById(
-    "acompanhamentos-options"
-  );
-  acompanhamentosContainer.innerHTML = "";
-
-  product.options.acompanhamentos.forEach((acompanhamento, index) => {
-    const checkbox = createOptionCheckbox(
-      "acompanhamentos",
-      acompanhamento,
-      index
-    );
-    acompanhamentosContainer.appendChild(checkbox);
-  });
-
-  updateSaboresCounter();
-  updateAcompanhamentosCounter();
 }
 
 function setupPastelFritoOptions() {
@@ -823,77 +776,30 @@ function setupPastelFritoOptions() {
     input.addEventListener("change", updateSelectedOptions);
     saborContainer.appendChild(radio);
   });
+
+  updateSelectedOptions();
 }
 
-function createOptionCheckbox(name, value, index) {
-  const checkbox = document.createElement("div");
-  checkbox.className = "option-checkbox";
-  checkbox.innerHTML = `
-    <input type="checkbox" id="${name}-${index}" name="${name}" value="${value}">
-    <label for="${name}-${index}">${value}</label>
-  `;
+function setupGenericOptions(product) {
+  // Para produtos genéricos com opções
+  if (product.options && product.options.sabores) {
+    document.getElementById("sabor-unico-section").style.display = "block";
+    const saborContainer = document.getElementById("sabor-unico-options");
+    saborContainer.innerHTML = "";
 
-  const input = checkbox.querySelector("input");
-  input.addEventListener("change", function () {
-    updateSelectedOptions();
-    if (name === "sabores") updateSaboresCounter();
-    if (name === "acompanhamentos") updateAcompanhamentosCounter();
-  });
+    product.options.sabores.forEach((sabor, index) => {
+      const radio = document.createElement("div");
+      radio.className = "option-checkbox";
+      radio.innerHTML = `
+        <input type="radio" id="sabor-${index}" name="sabor" value="${sabor}">
+        <label for="sabor-${index}">${sabor}</label>
+      `;
 
-  return checkbox;
-}
-
-function updateSaboresCounter() {
-  const selectedSabores = document.querySelectorAll(
-    'input[name="sabores"]:checked'
-  ).length;
-  const maxSabores = currentProductForOptions.options.maxSabores;
-
-  updateOptionCounter("sabores", selectedSabores, maxSabores);
-
-  // Desabilita/abilita checkboxes
-  document.querySelectorAll('input[name="sabores"]').forEach((checkbox) => {
-    const parent = checkbox.parentElement;
-    checkbox.disabled = selectedSabores >= maxSabores && !checkbox.checked;
-    parent.classList.toggle("disabled", checkbox.disabled);
-  });
-}
-
-function updateAcompanhamentosCounter() {
-  const selectedAcompanhamentos = document.querySelectorAll(
-    'input[name="acompanhamentos"]:checked'
-  ).length;
-  const maxAcompanhamentos =
-    currentProductForOptions.options.maxAcompanhamentos;
-
-  updateOptionCounter(
-    "acompanhamentos",
-    selectedAcompanhamentos,
-    maxAcompanhamentos
-  );
-
-  document
-    .querySelectorAll('input[name="acompanhamentos"]')
-    .forEach((checkbox) => {
-      const parent = checkbox.parentElement;
-      checkbox.disabled =
-        selectedAcompanhamentos >= maxAcompanhamentos && !checkbox.checked;
-      parent.classList.toggle("disabled", checkbox.disabled);
+      const input = radio.querySelector("input");
+      input.addEventListener("change", updateSelectedOptions);
+      saborContainer.appendChild(radio);
     });
-}
-
-function updateOptionCounter(type, selected, max) {
-  let counter = document.getElementById(`${type}-counter`);
-  if (!counter) {
-    counter = document.createElement("div");
-    counter.className = "option-counter";
-    counter.id = `${type}-counter`;
-    document.getElementById(`${type}-section`).appendChild(counter);
   }
-  counter.textContent = `Selecionados: ${selected}/${max}`;
-  counter.className = `option-counter ${
-    selected >= max ? "limit-reached" : ""
-  }`;
 }
 
 function updateSelectedOptions() {
@@ -902,25 +808,7 @@ function updateSelectedOptions() {
     "<h4>Opções Selecionadas:</h4><ul class='selected-options-list'></ul>";
   const list = selectedContainer.querySelector(".selected-options-list");
 
-  // Sabores
-  document
-    .querySelectorAll('input[name="sabores"]:checked')
-    .forEach((checkbox) => {
-      const li = document.createElement("li");
-      li.textContent = `Sabor: ${checkbox.value}`;
-      list.appendChild(li);
-    });
-
-  // Acompanhamentos
-  document
-    .querySelectorAll('input[name="acompanhamentos"]:checked')
-    .forEach((checkbox) => {
-      const li = document.createElement("li");
-      li.textContent = `Acompanhamento: ${checkbox.value}`;
-      list.appendChild(li);
-    });
-
-  // Sabor único
+  // Sabor único (para pastel frito)
   const selectedSabor = document.querySelector('input[name="sabor"]:checked');
   if (selectedSabor) {
     const li = document.createElement("li");
@@ -940,26 +828,7 @@ function addProductWithOptions() {
   let optionsText = "";
   let isValid = true;
 
-  if (currentProductForOptions.id === "pastelao") {
-    const selectedSabores = Array.from(
-      document.querySelectorAll('input[name="sabores"]:checked')
-    ).map((cb) => cb.value);
-    const selectedAcompanhamentos = Array.from(
-      document.querySelectorAll('input[name="acompanhamentos"]:checked')
-    ).map((cb) => cb.value);
-
-    if (selectedSabores.length === 0) {
-      showToast("Selecione pelo menos 1 sabor", "error");
-      isValid = false;
-    } else {
-      optionsText = `Sabores: ${selectedSabores.join(", ")}`;
-      if (selectedAcompanhamentos.length > 0) {
-        optionsText += ` | Acompanhamentos: ${selectedAcompanhamentos.join(
-          ", "
-        )}`;
-      }
-    }
-  } else if (currentProductForOptions.id === "pastel-frito") {
+  if (currentProductForOptions.id === "pastel-frito") {
     const selectedSabor = document.querySelector('input[name="sabor"]:checked');
     if (!selectedSabor) {
       showToast("Selecione um sabor", "error");
@@ -1008,7 +877,7 @@ function resetOptionsForm() {
   document.getElementById("selected-options").innerHTML = "";
 }
 
-// ===== CARRINHO (MELHORADO) =====
+// ===== CARRINHO =====
 function renderCart() {
   const cartItemsContainer = document.getElementById("cart-items");
   const subtotalElement = document.getElementById("subtotal");
@@ -1053,7 +922,6 @@ function renderCart() {
     cartItemsContainer.appendChild(cartItemElement);
   });
 
-  // Atualiza totais
   if (subtotalElement)
     subtotalElement.textContent = `R$ ${subtotal.toFixed(2)}`;
   if (totalElement) totalElement.textContent = `R$ ${subtotal.toFixed(2)}`;
@@ -1086,7 +954,6 @@ function createCartItemElement(item, product, index, itemTotal) {
     </div>
   `;
 
-  // Event listeners
   const decreaseBtn = element.querySelector(".decrease");
   const increaseBtn = element.querySelector(".increase");
   const removeBtn = element.querySelector(".remove-item");
@@ -1169,7 +1036,6 @@ function updateCartBadge() {
     cartBadge.textContent = totalItems;
     cartBadge.style.display = totalItems === 0 ? "none" : "flex";
 
-    // Animação do badge
     if (totalItems > 0) {
       cartBadge.classList.add("pulse");
       setTimeout(() => cartBadge.classList.remove("pulse"), 600);
@@ -1197,7 +1063,7 @@ function filterProducts(searchTerm) {
   renderProducts();
 }
 
-// ===== VERIFICAÇÃO DE HORÁRIO =====
+// ===== VERIFICAÇÃO DE HORÁRIO CORRIGIDA =====
 function isOpen(now = new Date()) {
   const day = now.getDay();
   const currentTime = now.getHours() * 60 + now.getMinutes();
@@ -1321,26 +1187,19 @@ function processOrder() {
   showToast("Pedido enviado com sucesso!", "success");
 }
 
-// ===== BUILD WHATSAPP MESSAGE (FORMATADA CORRETAMENTE) =====
-// ===== BUILD WHATSAPP MESSAGE (CORRIGIDA - SEM ESCAPE DUPLO) =====
+// ===== BUILD WHATSAPP MESSAGE =====
 function buildWhatsAppMessage(cart, address) {
   const phoneNumber = "5581995428388";
 
-  let message = `*🍔 NOVO PEDIDO - LANCHONETE TIA CLEIDE*
+  let message = `*🍔 NOVO PEDIDO - LANCHONETE TIA CLEIDE*\n\n`;
 
-`;
+  // DADOS DO CLIENTE
+  message += `*👤 DADOS DO CLIENTE*\n`;
+  message += `Nome: ${address.name}\n`;
+  message += `Telefone: [Cliente informará]\n\n`;
 
-  // ===== DADOS DO CLIENTE =====
-  message += `*👤 DADOS DO CLIENTE*
-Nome: ${address.name}
-Telefone: [Cliente informará]
-
-`;
-
-  // ===== ITENS DO PEDIDO =====
-  message += `*🛒 ITENS DO PEDIDO*
-
-`;
+  // ITENS DO PEDIDO
+  message += `*🛒 ITENS DO PEDIDO*\n\n`;
 
   let total = 0;
   cart.forEach((item, index) => {
@@ -1349,74 +1208,54 @@ Telefone: [Cliente informará]
       const itemTotal = product.price * item.quantity;
       total += itemTotal;
 
-      message += `*${index + 1}. ${product.name}*
-   🔹 Quantidade: ${item.quantity}
-   🔹 Preço: R$ ${product.price.toFixed(2)}`;
+      message += `*${index + 1}. ${product.name}*\n`;
+      message += `   🔹 Quantidade: ${item.quantity}\n`;
+      message += `   🔹 Preço: R$ ${product.price.toFixed(2)}\n`;
 
       if (item.options) {
-        message += `
-   🔹 Personalização: ${item.options}`;
+        message += `   🔹 Personalização: ${item.options}\n`;
       }
 
-      message += `
-   🔹 Subtotal: R$ ${itemTotal.toFixed(2)}
-
-`;
+      message += `   🔹 Subtotal: R$ ${itemTotal.toFixed(2)}\n\n`;
     }
   });
 
-  // ===== RESUMO DO VALOR =====
-  message += `*💰 RESUMO DO VALOR*
-Subtotal: R$ ${total.toFixed(2)}
-Taxa de entrega: A combinar
-*TOTAL: R$ ${total.toFixed(2)}*
+  // RESUMO DO VALOR
+  message += `*💰 RESUMO DO VALOR*\n`;
+  message += `Subtotal: R$ ${total.toFixed(2)}\n`;
+  message += `Taxa de entrega: A combinar\n`;
+  message += `*TOTAL: R$ ${total.toFixed(2)}*\n\n`;
 
-`;
-
-  // ===== ENDEREÇO DE ENTREGA =====
-  message += `*📍 ENDEREÇO DE ENTREGA*
-${address.street}, ${address.number}`;
+  // ENDEREÇO DE ENTREGA
+  message += `*📍 ENDEREÇO DE ENTREGA*\n`;
+  message += `${address.street}, ${address.number}\n`;
 
   if (address.complement) {
-    message += `
-${address.complement}`;
+    message += `${address.complement}\n`;
   }
 
-  message += `
-Bairro: ${address.neighborhood}
-Cidade: ${address.city}
-CEP: ${address.zipcode}
+  message += `Bairro: ${address.neighborhood}\n`;
+  message += `Cidade: ${address.city}\n\n`;
 
-`;
-
-  // ===== OBSERVAÇÕES =====
+  // OBSERVAÇÕES
   if (address.notes && address.notes.trim() !== "") {
-    message += `*📝 OBSERVAÇÕES*
-${address.notes}
-
-`;
+    message += `*📝 OBSERVAÇÕES*\n`;
+    message += `${address.notes}\n\n`;
   }
 
-  // ===== HORÁRIO =====
-  message += `*⏰ HORÁRIO DO PEDIDO*
-${new Date().toLocaleTimeString("pt-BR", {
-  hour: "2-digit",
-  minute: "2-digit",
-})}
-
-`;
+  // HORÁRIO
+  message += `*⏰ HORÁRIO DO PEDIDO*\n`;
+  message += `${new Date().toLocaleTimeString("pt-BR", {
+    hour: "2-digit",
+    minute: "2-digit",
+  })}\n\n`;
 
   message += `_📱 Pedido enviado automaticamente pelo site_`;
 
-  // Debug: mostra a mensagem no console
-  console.log("Mensagem formatada:");
-  console.log(message);
-
-  // Codifica a mensagem para URL
   const encodedMessage = encodeURIComponent(message);
-
   return `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
 }
+
 // ===== UTILITÁRIOS =====
 function findProductById(id) {
   for (const category of menu) {
@@ -1433,7 +1272,6 @@ function showToast(message, type = "info") {
   toast.textContent = message;
   toast.className = `toast ${type} show`;
 
-  // Remove após 3 segundos
   setTimeout(() => {
     toast.classList.remove("show");
   }, 3000);
@@ -1452,7 +1290,7 @@ function diagnoseImages() {
   console.log("🔍 INICIANDO DIAGNÓSTICO DE IMAGENS...");
 
   menu.forEach((category) => {
-    console.log(`\\n📁 Categoria: ${category.category}`);
+    console.log(`\n📁 Categoria: ${category.category}`);
     category.items.forEach((product) => {
       const img = new Image();
       img.onload = function () {
