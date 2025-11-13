@@ -35,7 +35,7 @@ const menu = [
     items: [
       {
         id: "coxinha",
-        name: "Coxinha",
+        name: "Coxinha de frango",
         price: 5.0,
         image: "assets/images/salgados-coxinha.jpg",
         description: "Coxinha de frango",
@@ -43,7 +43,7 @@ const menu = [
       },
       {
         id: "joelho",
-        name: "Joelho",
+        name: "joelho de presunto e queijo",
         price: 3.0,
         image: "assets/images/salgado-joelho-queijo.jpg",
         description: "Joelho de presunto com queijo",
@@ -51,7 +51,7 @@ const menu = [
       },
       {
         id: "coxinha",
-        name: "Coxinha com requeijão",
+        name: "Coxinha de frango com requeijão",
         price: 5.0,
         image: "assets/images/salgados-coxinha-re.jpg",
         description: "Coxinha de frango com requeijão",
@@ -97,7 +97,7 @@ const menu = [
       {
         id: "joelho-frango",
         name: "Joelho de frango com queijo",
-        price: 4.0,
+        price: 3.0,
         image: "assets/images/salgados-joelho.jpg",
         description: "Joelho recheado com frango e queijo",
         hasOptions: false,
