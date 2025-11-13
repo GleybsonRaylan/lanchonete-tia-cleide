@@ -42,6 +42,22 @@ const menu = [
         description: "Torta super recheada + salgados",
         hasOptions: false,
       },
+      {
+        id: "cachorro-quente",
+        name: "Cachorro quente GIGANTE",
+        price: 15.0,
+        image: "assets/images/salgados-cachorro.jpg",
+        description: "Cachorro quente gigante com diversos acompanhamentos",
+        hasOptions: false,
+      },
+      {
+        id: "Empadão",
+        name: "Empadão de frango",
+        price: 14.0,
+        image: "assets/images/lanches-empadao.jpg",
+        description: "Empadão com frango cremoso",
+        hasOptions: false,
+      },
     ],
   },
   {
@@ -49,10 +65,18 @@ const menu = [
     items: [
       {
         id: "coxinha",
-        name: "Coxinha",
+        name: "Coxinha com catupiry",
         price: 4.0,
         image: "assets/images/salgados-coxinha.jpg",
         description: "Coxinha de frango com catupiry",
+        hasOptions: false,
+      },
+      {
+        id: "coxinha",
+        name: "Coxinha com requeijão",
+        price: 5.0,
+        image: "assets/images/salgados-coxinha-re.jpg",
+        description: "Coxinha de frango com requeijão",
         hasOptions: false,
       },
       {
@@ -81,7 +105,15 @@ const menu = [
         name: "Empada",
         price: 3.0,
         image: "assets/images/salgados-empada.jpg",
-        description: "Empada de frango ou palmito",
+        description: "Empada de frango",
+        hasOptions: false,
+      },
+      {
+        id: "esfirra",
+        name: "Esfirra de carne",
+        price: 3.0,
+        image: "assets/images/salgados-esfirra.jpg",
+        description: "Esfirra recheada de carne",
         hasOptions: false,
       },
       {
@@ -108,40 +140,20 @@ const menu = [
         description: "Enroladinho de salsicha com massa crocante",
         hasOptions: false,
       },
-      {
-        id: "cachorro-quente",
-        name: "Cachorro quente GIGANTE",
-        price: 15.0,
-        image: "assets/images/salgados-cachorro.jpg",
-        description: "Cachorro quente gigante com diversos acompanhamentos",
-        hasOptions: false,
-      },
     ],
   },
-  {
-    category: "Bebidas",
-    items: [
-      {
-        id: "refri-250ml",
-        name: "Refrigerante 250 ml",
-        price: 2.0,
-        image: "assets/images/bebidas-refri250.jpg",
-        description: "Refrigerante em garrafa de 250ml",
-        hasOptions: false,
-      },
-      {
-        id: "refri-lata",
-        name: "Refrigerante lata 350 ml",
-        price: 5.0,
-        image: "assets/images/bebidas-refrilata.jpg",
-        description: "Refrigerante em lata de 350ml",
-        hasOptions: false,
-      },
-    ],
-  },
+
   {
     category: "Combos",
     items: [
+      {
+        id: "combo-20",
+        name: "20 Salgados",
+        price: 10.0,
+        image: "assets/images/combos-100.jpg",
+        description: "20 salgados sortidos",
+        hasOptions: false,
+      },
       {
         id: "combo-30",
         name: "30 Salgados",
@@ -193,6 +205,27 @@ const menu = [
     ],
   },
   {
+    category: "Bebidas",
+    items: [
+      {
+        id: "refri-250ml",
+        name: "Refrigerante 250 ml",
+        price: 2.0,
+        image: "assets/images/bebidas-refri250.jpg",
+        description: "Refrigerante em garrafa de 250ml",
+        hasOptions: false,
+      },
+      {
+        id: "refri-lata",
+        name: "Refrigerante lata 350 ml",
+        price: 5.0,
+        image: "assets/images/bebidas-refrilata.jpg",
+        description: "Refrigerante em lata de 350ml",
+        hasOptions: false,
+      },
+    ],
+  },
+  {
     category: "Frios",
     items: [
       {
@@ -201,6 +234,22 @@ const menu = [
         price: 2.0,
         image: "assets/images/frios-cremosinho.jpg",
         description: "Cremosinho original da casa",
+        hasOptions: false,
+      },
+      {
+        id: "Sorvete",
+        name: "Sorvete Copão",
+        price: 5.0,
+        image: "assets/images/frios-sorvete.jpg",
+        description: "Sorvete de Mano",
+        hasOptions: false,
+      },
+      {
+        id: "Dudu",
+        name: "Dudu",
+        price: 1.0,
+        image: "assets/images/frios-dudu.jpg",
+        description: "Dudu de frutas",
         hasOptions: false,
       },
       {
