@@ -296,9 +296,15 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function initializeApp() {
+  console.log("🔧 Inicializando aplicação...");
+
   // Carrega dados do localStorage
   loadCart();
   loadFavorites();
+
+  // Debug: verifica o carrinho carregado
+  console.log("🛒 Carrinho carregado:", cart);
+  console.log("📊 Total de itens no carrinho:", getTotalCartItems());
 
   // Renderiza a interface
   renderCategories();
@@ -607,7 +613,11 @@ function createProductCard(product) {
   const card = document.createElement("div");
   card.className = "product-card";
 
-  const cartItem = cart.find((item) => item.id === product.id && !item.options);
+  // Encontra o item no carrinho (sem opções)
+  const cartItem = cart.find(
+    (item) => item.id === product.id && (!item.options || item.options === "")
+  );
+
   const quantity = cartItem ? cartItem.quantity : 0;
   const isFavorite = favorites.includes(product.id);
 
@@ -990,10 +1000,11 @@ function createCartItemElement(item, product, index, itemTotal) {
   return element;
 }
 
-// ===== GERENCIAMENTO DO CARRINHO =====
+// ===== GERENCIAMENTO DO CARRINHO CORRIGIDO =====
 function updateProductQuantity(productId, newQuantity) {
+  // Encontra o item no carrinho (sem opções)
   const itemIndex = cart.findIndex(
-    (item) => item.id === productId && !item.options
+    (item) => item.id === productId && (!item.options || item.options === "")
   );
 
   if (newQuantity <= 0) {
@@ -1003,7 +1014,11 @@ function updateProductQuantity(productId, newQuantity) {
     }
   } else {
     if (itemIndex === -1) {
-      cart.push({ id: productId, quantity: newQuantity });
+      cart.push({
+        id: productId,
+        quantity: newQuantity,
+        options: "", // Garante que não tenha opções
+      });
       showToast("Item adicionado ao carrinho", "success");
     } else {
       cart[itemIndex].quantity = newQuantity;
@@ -1011,17 +1026,33 @@ function updateProductQuantity(productId, newQuantity) {
   }
 
   saveCart();
+  updateCartBadge(); // Atualiza o badge imediatamente
 }
 
 function loadCart() {
   const savedCart = localStorage.getItem("tiaCleideCart");
   if (savedCart) {
     try {
-      cart = JSON.parse(savedCart);
+      const parsedCart = JSON.parse(savedCart);
+      // Garante que o carrinho é um array válido
+      cart = Array.isArray(parsedCart) ? parsedCart : [];
+
+      // Limpa qualquer item inválido do carrinho
+      cart = cart.filter(
+        (item) =>
+          item &&
+          item.id &&
+          typeof item.quantity === "number" &&
+          item.quantity > 0
+      );
+
+      console.log("🛒 Carrinho carregado e validado:", cart);
     } catch (e) {
       console.error("Erro ao carregar carrinho:", e);
       cart = [];
     }
+  } else {
+    cart = [];
   }
 }
 
@@ -1029,14 +1060,37 @@ function saveCart() {
   localStorage.setItem("tiaCleideCart", JSON.stringify(cart));
 }
 
+// FUNÇÃO CORRIGIDA PARA CALCULAR TOTAL DE ITENS
+function getTotalCartItems() {
+  if (!cart || !Array.isArray(cart)) {
+    return 0;
+  }
+
+  const total = cart.reduce((total, item) => {
+    // Verifica se o item é válido
+    if (item && typeof item.quantity === "number" && item.quantity > 0) {
+      return total + item.quantity;
+    }
+    return total;
+  }, 0);
+
+  console.log("📊 Calculando total do carrinho:", total, "itens");
+  return total;
+}
+
 function updateCartBadge() {
   const cartBadge = document.getElementById("cart-badge");
   if (cartBadge) {
-    const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
-    cartBadge.textContent = totalItems;
-    cartBadge.style.display = totalItems === 0 ? "none" : "flex";
+    const totalItems = getTotalCartItems();
 
-    if (totalItems > 0) {
+    console.log("🔄 Atualizando badge do carrinho:", totalItems, "itens");
+
+    cartBadge.textContent = totalItems;
+
+    if (totalItems === 0) {
+      cartBadge.style.display = "none";
+    } else {
+      cartBadge.style.display = "flex";
       cartBadge.classList.add("pulse");
       setTimeout(() => cartBadge.classList.remove("pulse"), 600);
     }
@@ -1304,7 +1358,31 @@ function diagnoseImages() {
   });
 }
 
+// ===== LIMPEZA DO CARRINHO AO INICIAR =====
+function clearInvalidCart() {
+  const savedCart = localStorage.getItem("tiaCleideCart");
+  if (savedCart) {
+    try {
+      const parsed = JSON.parse(savedCart);
+      if (!Array.isArray(parsed) || parsed.some((item) => !item.id)) {
+        console.log("🔄 Limpando carrinho inválido...");
+        localStorage.removeItem("tiaCleideCart");
+        cart = [];
+        updateCartBadge();
+      }
+    } catch (e) {
+      console.log("🔄 Limpando carrinho corrompido...");
+      localStorage.removeItem("tiaCleideCart");
+      cart = [];
+      updateCartBadge();
+    }
+  }
+}
+
 // Executa diagnóstico quando a página carregar
 window.addEventListener("load", function () {
-  setTimeout(diagnoseImages, 1000);
+  setTimeout(() => {
+    diagnoseImages();
+    clearInvalidCart();
+  }, 1000);
 });
